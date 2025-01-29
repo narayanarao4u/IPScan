@@ -1,3 +1,11 @@
+To use multiple custom columns in your `DataTable` component, you can modify the `customColumn` prop to accept an array of custom columns instead of a single custom column. Here's how you can do it:
+
+1. **Update the `customColumns` prop** to accept an array of custom columns.
+2. **Modify the rendering logic** to handle multiple custom columns.
+
+Here's an example of how you can achieve this:
+
+```jsx
 import React, { useState, useEffect } from 'react';
 import { Search, SlidersHorizontal } from 'lucide-react';
 import { ScanData } from '../types';
@@ -7,12 +15,11 @@ import Modal from '../Modal';
 
 interface DataTableProps {
   data: ScanData[];
-  columns: { key: string; label: string,
-        render?: (value: any) => React.ReactNode, 
-   }[];
+  columns: { key: string; label: string }[];
+  customColumns?: { key: string; label: string; render: (item: ScanData) => React.ReactNode }[];
 }
 
-export function DataTable({ data, columns }: DataTableProps) {
+export function DataTable({ data, columns, customColumns = [] }: DataTableProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState<Record<string, string>>({});
   const [visibleRows, setVisibleRows] = useState(100);
@@ -104,6 +111,14 @@ export function DataTable({ data, columns }: DataTableProps) {
                   {label}
                 </th>
               ))}
+              {customColumns.map(({ key, label }) => (
+                <th
+                  key={key}
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  {label}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -114,8 +129,12 @@ export function DataTable({ data, columns }: DataTableProps) {
                     // onClick={() => PCInfo(key, item)}
                     className="px-6 py-1 whitespace-nowrap text-sm text-gray-500"
                   >
-                    {columns.find(col => col.key === key)?.render?.(item[key]) || String(item[key]) || '-'}
-                    {/* {String(item[key])} */}
+                    {String(item[key])}
+                  </td>
+                ))}
+                {customColumns.map(({ key, render }) => (
+                  <td key={key} className="px-6 py-1 whitespace-nowrap text-sm text-gray-500">
+                    {render(item)}
                   </td>
                 ))}
               </tr>
@@ -129,3 +148,48 @@ export function DataTable({ data, columns }: DataTableProps) {
     </div>
   );
 }
+```
+
+### Example Usage
+
+Here's an example of how you can use the `DataTable` component with multiple custom columns:
+
+```jsx
+import React from 'react';
+import { DataTable } from './DataTable';
+import { ScanData } from '../types';
+
+const data: ScanData[] = [
+  { id: 1, IP_Address: '192.168.1.1', Physical_Address: '00:1A:2B:3C:4D:5E' },
+  { id: 2, IP_Address: '192.168.1.2', Physical_Address: '00:1A:2B:3C:4D:5F' },
+  // Add more data as needed
+];
+
+const columns = [
+  { key: 'IP_Address', label: 'IP Address' },
+  { key: 'Physical_Address', label: 'MAC Address' },
+];
+
+const customColumns = [
+  {
+    key: 'Custom_Column_1',
+    label: 'Custom Column 1',
+    render: (item: ScanData) => <span>{item.IP_Address} - Custom Data 1</span>,
+  },
+  {
+    key: 'Custom_Column_2',
+    label: 'Custom Column 2',
+    render: (item: ScanData) => <span>{item.Physical_Address} - Custom Data 2</span>,
+  },
+];
+
+export default function App() {
+  return (
+    <div className="App">
+      <DataTable data={data} columns={columns} customColumns={customColumns} />
+    </div>
+  );
+}
+```
+
+In this example, the `customColumns` prop is passed to the `DataTable` component as an array of custom columns. Each custom column includes a `render` function that defines how the custom column should be rendered for each row. You can customize the `render` function to display any content you need based on the `ScanData` item.
