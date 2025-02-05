@@ -91,27 +91,45 @@ function PCInfoByMAC({ MAC }: PCInfoByMACProps) {
 
   return (
     <>
-      
-        
-        <strong className="font-bold text-gray-900"> {MAC}
-          <button onClick={() => setIsOpen(true)} 
-          className="text-red-500" > 
-            <Info /> 
-          </button>
-        </strong>
-        
+      <strong className="font-bold text-gray-900">
+        {MAC}
+        <button onClick={() => setIsOpen(true)} className="text-red-500">
+          <Info />
+        </button>
+      </strong>
+      <span>{data[0]?.empname}</span>
 
-        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-          <div className="grid grid-cols-2 gap-2">
-            <div>EMP</div><div>{data[0]?.empname}</div>
-            <div>HRNO</div><div>{data[0]?.hrmsno}</div>
-            <div>Phono</div><div>{data[0]?.phone}</div>
-            <div>Location</div><div>{data[0]?.locationtxt}</div>
-            <div>IP</div><div>{data[0]?.IPv4Address}</div>
-          </div>
-        </Modal>
-      
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+        <div className="grid grid-cols-2 border border-gray-600  rounded-md p-2">
+          {/*  */}
+          <div>Hostname:</div> <div>{data[0]?.Hostname}</div>
+          <div>IPv4Address:</div> <div>{data[0]?.IPv4Address}</div>
+          <div>MACAddress:</div> <div>{data[0]?.MACAddress}</div>
+          <div>Manufacturer:</div> <div>{data[0]?.Manufacturer}</div>
+          <div>OS_Name:</div> <div>{data[0]?.OS_Name}</div>
+          <div>OS_Version:</div> <div>{data[0]?.OS_Version}</div>
+          <div>PC ID:</div> <div>{data[0]?.PCid}</div>
+          <div>Processor:</div> <div>{data[0]?.ProcessorName}</div>
+          <div>RAM_GB:</div> <div>{data[0]?.RAM_GB}</div>
+          <div>SerialNumber:</div> <div>{data[0]?.SerialNumber}</div>
+          <div>SystemManufacturer:</div>{" "}
+          <div>{data[0]?.SystemManufacturer}</div>
+          <div>SystemModel:</div> <div>{data[0]?.SystemModel}</div>
+          <div>SystemName:</div> <div>{data[0]?.SystemName}</div>
+          <div>SystemUserName:</div> <div>{data[0]?.SystemUserName}</div>
+          <div>empname:</div> <div>{data[0]?.empname}</div>
+          <div>hrmsno:</div> <div>{data[0]?.hrmsno}</div>
+          <div>locationtxt:</div> <div>{data[0]?.locationtxt}</div>
+          <div>phone:</div> <div>{data[0]?.phone}</div>
+          <div>prnMake:</div> <div>{data[0]?.prnMake}</div>
+          <div>prnModel:</div> <div>{data[0]?.prnModel}</div>
+          <div>prnSerialNo:</div> <div>{data[0]?.prnSerialNo}</div>
+          <div>createdAt:</div> <div>{data[0]?.createdAt}</div>
+          <div>updatedAt:</div> <div>{data[0]?.updatedAt}</div>
+          {/*  */}
+        </div>
+      </Modal>
     </>
   );
 }

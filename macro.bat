@@ -1,0 +1,1 @@
+DOSKEY /macrofile=macros.txt

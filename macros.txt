@@ -1,0 +1,3 @@
+cb=cd backend
+rd=npm run dev
+cf=cd frontend

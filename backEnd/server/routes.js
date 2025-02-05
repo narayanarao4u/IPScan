@@ -36,7 +36,7 @@ router.get('/dateTime', (req, res) => {
     });
 })
 
-//macip address count
+//mac and ip address 
 router.get('/macip', (req, res) => {
     const sql = `select Physical_Address, IP_Address from  ipScanDb.scanTb 
 	group by Physical_Address, IP_Address order by 1`;
@@ -59,8 +59,7 @@ router.get('/ipNeverUsed', (req, res) => {
         select ip.IP_Address from IPRange ip left join tb on ip.IP_Address = tb.IP_Address 
         where tb.IP_Address is null
         order by INET_ATON(ip.IP_Address)
-
-    `;
+            `;
                     
     db.query(sql, (err, results) => {
         if (err) {
