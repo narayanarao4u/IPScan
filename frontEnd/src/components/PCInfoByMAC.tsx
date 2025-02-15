@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../Modal";
 import { Info } from "lucide-react";
+import styled from "styled-components";
 
 interface Data {
   _id: string;
@@ -91,18 +92,28 @@ function PCInfoByMAC({ MAC }: PCInfoByMACProps) {
 
   return (
     <>
+      <div className="flex items-center gap-3">
       <strong className="font-bold text-gray-900">
         {MAC}
-        <button onClick={() => setIsOpen(true)} className="text-red-500">
+        
+      </strong>
+      <button onClick={() => setIsOpen(true)} className="text-red-500 inline-block align-middle">
           <Info />
         </button>
-      </strong>
       <span>{data[0]?.empname}</span>
+      </div> 
+      
 
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-        <div className="grid grid-cols-2 border border-gray-600  rounded-md p-2">
+        <DIV>
           {/*  */}
+
+          <div>HR NO:</div> <div>{data[0]?.hrmsno}</div>
+          <div>Emp Name:</div> <div>{data[0]?.empname?.toUpperCase()}</div>
+          <div>Location:</div> <div>{data[0]?.locationtxt}</div>
+          <div>Phone:</div> <div>{data[0]?.phone}</div>
+          
           <div>Hostname:</div> <div>{data[0]?.Hostname}</div>
           <div>IPv4Address:</div> <div>{data[0]?.IPv4Address}</div>
           <div>MACAddress:</div> <div>{data[0]?.MACAddress}</div>
@@ -111,27 +122,37 @@ function PCInfoByMAC({ MAC }: PCInfoByMACProps) {
           <div>OS_Version:</div> <div>{data[0]?.OS_Version}</div>
           <div>PC ID:</div> <div>{data[0]?.PCid}</div>
           <div>Processor:</div> <div>{data[0]?.ProcessorName}</div>
-          <div>RAM_GB:</div> <div>{data[0]?.RAM_GB}</div>
+          <div>RAM_GB:</div> <div>{Math.ceil(data[0]?.RAM_GB)} GB</div>
           <div>SerialNumber:</div> <div>{data[0]?.SerialNumber}</div>
           <div>SystemManufacturer:</div>{" "}
           <div>{data[0]?.SystemManufacturer}</div>
           <div>SystemModel:</div> <div>{data[0]?.SystemModel}</div>
           <div>SystemName:</div> <div>{data[0]?.SystemName}</div>
           <div>SystemUserName:</div> <div>{data[0]?.SystemUserName}</div>
-          <div>empname:</div> <div>{data[0]?.empname}</div>
-          <div>hrmsno:</div> <div>{data[0]?.hrmsno}</div>
-          <div>locationtxt:</div> <div>{data[0]?.locationtxt}</div>
-          <div>phone:</div> <div>{data[0]?.phone}</div>
-          <div>prnMake:</div> <div>{data[0]?.prnMake}</div>
-          <div>prnModel:</div> <div>{data[0]?.prnModel}</div>
-          <div>prnSerialNo:</div> <div>{data[0]?.prnSerialNo}</div>
+          
+          <div>Printer Make:</div> <div>{data[0]?.prnMake}</div>
+          <div>Printer Model:</div> <div>{data[0]?.prnModel}</div>
+          <div>SerialNo:</div> <div>{data[0]?.prnSerialNo}</div>
           <div>createdAt:</div> <div>{data[0]?.createdAt}</div>
           <div>updatedAt:</div> <div>{data[0]?.updatedAt}</div>
           {/*  */}
-        </div>
+        </DIV>
       </Modal>
     </>
   );
 }
+
+const DIV = styled.div`
+  border: 3px solid #ccc;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  div {    
+    border-bottom: 1px solid #ccc;
+  }
+  `
 
 export default PCInfoByMAC;
