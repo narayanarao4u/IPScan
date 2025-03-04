@@ -5,11 +5,13 @@ import IPSearch from './components/IPSearch';
 import DateTime from './components/DateTime';
 import MacIp from './components/MacIp';
 import NeverUsedIP from './components/NeverUsedIP';
+import LineChartComponent from './components/LineChartComponent';
 
 function App() {
   return (
     <Layout>
       <Routes>
+        <Route path="/" element={<LineChartComponent />} />
         <Route path="/ip-search" element={<IPSearch />} />
         <Route path="/date-time" element={<DateTime />} />
         <Route path="/MACIP" element={<MacIp />} />
