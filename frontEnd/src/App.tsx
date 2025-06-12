@@ -6,16 +6,18 @@ import DateTime from './components/DateTime';
 import MacIp from './components/MacIp';
 import NeverUsedIP from './components/NeverUsedIP';
 import LineChartComponent from './components/LineChartComponent';
+import TrinetraDashboard from './components/TrinetraDashboard';
 
 function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<LineChartComponent />} />
+        <Route path="/" element={<TrinetraDashboard />} />
         <Route path="/ip-search" element={<IPSearch />} />
         <Route path="/date-time" element={<DateTime />} />
         <Route path="/MACIP" element={<MacIp />} />
         <Route path="/freeIPs" element={<NeverUsedIP />} />
+        <Route path="/LineChart" element={<LineChartComponent />} />
       </Routes>
       <div id="modal" style={{ position: 'relative', zIndex: 10 }}></div>
     </Layout>
@@ -26,8 +28,11 @@ function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
       <header className='bg-blue-200 p-4 flex justify-between items-center'>
-        <h1>IP Data</h1>
+        <h1>
+          IP Data
+        </h1>
         <nav className='flex space-x-4'>          
+            <Link to="/">Home</Link>      
             <Link to="/ip-search">IP Search</Link>      
             <Link to="/date-time">Date & Time</Link>                
             <Link to="/MACIP">MAC & IP</Link>

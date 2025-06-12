@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { DataTable } from './DataTable';
 import { ScanData } from './../types';
 
+
 interface FetchDataComponentProps {
   endpoint: string;
   columns: { key: string, label: string }[];
   title: string;
+  url?: string;
+  children?: React.ReactNode;
 }
 
-const FetchDataComponent: React.FC<FetchDataComponentProps> = ({ endpoint, columns, title }) => {
+const FetchDataComponent: React.FC<FetchDataComponentProps> = ({ endpoint, columns, title, url='', children }) => {
   const [data, setData] = useState<ScanData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -18,7 +21,10 @@ const FetchDataComponent: React.FC<FetchDataComponentProps> = ({ endpoint, colum
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${baseULR}${endpoint}`);
+        let apiUrl = url ? url : `${baseULR}${endpoint}`;
+        console.log(`Fetching data from: ${apiUrl}`);
+        
+        const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
@@ -60,8 +66,9 @@ const FetchDataComponent: React.FC<FetchDataComponentProps> = ({ endpoint, colum
 
   return (
     <div className="min-h-screen bg-gray-50 p-2">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-3">{title}</h1>
+      <div className="w- mx-auto">
+        <h1 className="text-3xl font-bold text-gray-900 mb-3">{title} ({data.length})</h1>
+        {children}
         <DataTable data={data} columns={columns} />
       </div>
     </div>

@@ -1,21 +1,14 @@
 const express = require('express');
-const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const routes = require('./routes'); // Add this line
+const routes = require('./routes');
+const routespcinfos = require('./route-pcinfos'); // <-- Add this line
+const db = require('./db'); // <-- Use the db module
 
 // Create Express app
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
-
-// MySQL connection
-const db = mysql.createConnection({
-    host: '10.34.130.254',
-    user: 'bsnlvm',
-    password: 'bsnl@123',
-    database: 'ipScanDb'
-});
 
 // Connect to the database
 db.connect((err) => {
@@ -27,7 +20,8 @@ db.connect((err) => {
 });
 
 // Routes
-app.use('/api/scan', routes); // Add this line
+app.use('/api/scan', routes);
+app.use('/api-pcinfo', routespcinfos); // <-- Register new route
 
 // Start the server
 const PORT = 3000;

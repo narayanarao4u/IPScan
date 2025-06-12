@@ -33,7 +33,7 @@ interface TimeSeriesData {
 
 const LineChartComponent = () => {
   const [chartData, setChartData] = useState<ChartData<'line'>>({
-    labels: [],
+    labels: [] as string[],
     datasets: []
   });
 
@@ -87,7 +87,7 @@ const LineChartComponent = () => {
 
   return (
     <div className="w-full h-[400px] p-4">
-      {chartData.labels.length > 0 && (
+      {chartData.labels && chartData.labels.length > 0 && (
         <Line options={options} data={chartData} />
       )}
     </div>

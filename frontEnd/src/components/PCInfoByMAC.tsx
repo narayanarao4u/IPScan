@@ -92,15 +92,15 @@ function PCInfoByMAC({ MAC }: PCInfoByMACProps) {
 
   return (
     <>
-      <div className="flex items-center gap-3">
-      <strong className="font-bold text-gray-900">
-        {MAC}
-        
-      </strong>
-      <button onClick={() => setIsOpen(true)} className="text-red-500 inline-block align-middle">
-          <Info />
-        </button>
-      <span>{data[0]?.empname}</span>
+      <div className="grid grid-cols-3">
+          <strong className="font-bold text-gray-900">
+            {MAC}
+          </strong>
+          
+          <span>{data[0]?.empname}</span>
+          <button onClick={() => setIsOpen(true)} className="text-red-500 inline-block align-middle">
+              <Info />
+          </button>
       </div> 
       
 

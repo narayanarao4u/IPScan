@@ -1,15 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const mysql = require('mysql');
-
-// MySQL connection
-const db = mysql.createConnection({
-    host: '10.34.130.254',
-    user: 'bsnlvm',
-    password: 'bsnl@123',
-    database: 'ipScanDb',
-    timezone: 'IST' // Set timezone to IST
-});
+const db = require('./db'); // <-- Use the db module
 
 // Get all records
 router.get('/', (req, res) => {
